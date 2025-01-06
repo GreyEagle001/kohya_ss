@@ -1,0 +1,18 @@
+name: Aliyun FC deploy
+on:
+  push:
+    branches:
+      - master
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+      - run: npm install
+      - run: npm install -g @serverless-devs/s
+      # 上一步配置的密钥就用在这里
+      - run: s config add --AccountID ${{ secrets.ACCOUNT_ID }} --AccessKeyID ${{ secrets.ACCESS_KEY_ID }} --AccessKeySecret ${{ secrets.ACCESS_KEY_SECRET }} -a default
+      - run: s deploy function --type code --use-local
