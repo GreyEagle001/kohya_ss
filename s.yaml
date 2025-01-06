@@ -1,0 +1,13 @@
+edition: 1.0.0
+name: surge-config
+access: default
+services:
+  fc-deploy:
+    component: fc
+    props:
+      region: cn-hangzhou 
+      service:
+        name: wildservice 
+      function:
+        name: surge-config 
+        codeUri: ./
